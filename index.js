@@ -9,7 +9,7 @@ const questions = () => {
         {
             type: 'input',
             name: 'title',
-            message: 'What is the title of your project?',
+            message: 'What is the title of this project? (Required)',
             validate: titleInput => {
                 if (titleInput) {
                     return true;
@@ -22,7 +22,7 @@ const questions = () => {
         {
             type: 'input',
             name: 'description',
-            message: 'Please describe your project. What was your motive? Why did you build this project? What problem does it solve? What did you learn?',
+            message: 'Please describe this project. What was the motive? Why was this project built? What problem does it solve? What knowledge was gained? (Required)',
             validate: descriptionInput => {
                 if (descriptionInput) {
                     return true;
@@ -31,7 +31,65 @@ const questions = () => {
                     return false;
                 }
             }
+        },        
+        {
+            type: 'confirm',
+            name: 'confirmInstall',
+            message: 'Are there steps to install this project?',
+            default: true
         },
+        {
+            type: 'input',
+            name: 'installation',
+            message: 'What are the steps required to install this project? (Required)',
+            when: ({ confirmInstall }) => {
+                if (confirmInstall) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }, 
+
+        {
+            type: 'input',
+            name: 'usage',
+            message: 'Provide instructions and examples for use of this project. (Required)',
+            validate: usageInput => {
+                if (usageInput) {
+                    return true;
+                } else {
+                    console.log('Please enter usage information!');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'confirm',
+            name: 'confirmContribute',
+            message: 'Would you like others to contribute to this project?',
+            default: true
+        },
+        {
+            type: 'input',
+            name: 'contribution',
+            message: 'Provide instructions for how others can contribute to this project.',
+            when: ({ confirmContribute }) => {
+                if (confirmContribute) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'list',
+            name:'license',
+            message: '',
+            choices: ['MIT', 'APACHE', 'AGPL', 'No license']
+        },
+        
+
     ]);
 }
 
