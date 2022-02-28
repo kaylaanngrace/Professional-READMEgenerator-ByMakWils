@@ -29,8 +29,6 @@ function renderLicenseSection(license) {
     return `
       ## [Liscense](#table-of-contents)
       The license this application is covered under is: 
-
-      ${renderLicenseBadge(badge)}
       ${renderLicenseLink(license)}
     `
   } else {
@@ -40,9 +38,34 @@ function renderLicenseSection(license) {
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  return `# ${data.title}
+  return `
+    # ${data.title}
 
-`;
+    ${renderLicenseBadge(data.license)}
+
+    ## Table-of-Contents 
+
+    * [Description] (#description)
+    * [Installation](#installation)
+    * [Usage](#usage)
+    ${renderLicenseTOC(data.license)}
+    * [Contributions](#contributions)
+    * [Tests](#tests)
+    * [Questions](#questions)
+
+    ## [Description]
+
+    ## [Installation]
+
+    ## [Usage]
+
+    ## [Contributions]
+
+    ## [Tests]
+
+    ## [Questions]
+
+  `;
 }
 
 module.exports = generateMarkdown;
