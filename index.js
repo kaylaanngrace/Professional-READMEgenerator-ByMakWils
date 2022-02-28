@@ -33,19 +33,14 @@ const questions = () => {
             }
         },        
         {
-            type: 'confirm',
-            name: 'confirmInstall',
-            message: 'Are there steps to install this project?',
-            default: true
-        },
-        {
             type: 'input',
             name: 'installation',
             message: 'What are the steps required to install this project? (Required)',
-            when: ({ confirmInstall }) => {
-                if (confirmInstall) {
+            validate: installationInput => {
+                if (installationInput) {
                     return true;
                 } else {
+                    console.log('Please enter installation instructions!');
                     return false;
                 }
             }
@@ -65,37 +60,27 @@ const questions = () => {
             }
         },
         {
-            type: 'confirm',
-            name: 'confirmContribute',
-            message: 'Would you like others to contribute to this project?',
-            default: true
-        },
-        {
             type: 'input',
             name: 'contribution',
             message: 'Provide instructions for how others can contribute to this project.',
-            when: ({ confirmContribute }) => {
-                if (confirmContribute) {
+            validate: contributionInput => {
+                if (contributionInput) {
                     return true;
                 } else {
+                    console.log('Please enter contributer guidelines!');
                     return false;
                 }
             }
         },
         {
-            type: 'confirm',
-            name: 'confirmTest',
-            message: 'Are there any test for this project to include in the README.md?',
-            default: true
-        },
-        {
             type: 'input',
             name: 'tests',
             message: 'Provide information on how to run your tests',
-            when: ({ confirmTest }) => {
-                if (confirmTest) {
+            validate: testsInput => {
+                if (testsInput) {
                     return true;
                 } else {
+                    console.log('Please enter test instructions!');
                     return false;
                 }
             }

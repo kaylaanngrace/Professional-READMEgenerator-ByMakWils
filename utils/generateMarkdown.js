@@ -1,9 +1,9 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
-  if (license = !'No license') {
+  if (license !=='No license') {
     return `
-      ![badge](https://img.shields.io/badge/license-${license}-blue)
+![${license} License](https://img.shields.io/badge/license-${license.split(' ').join('%20')}-blue)
     `
   } else {
     return '';
@@ -13,9 +13,9 @@ function renderLicenseBadge(license) {
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
-  if (license = !'No license') {
+  if (license !== 'No license') {
     return `
-    [${license}](https://choosealicense.com/licenses/${license})
+[${license}](https://choosealicense.com/)
     `
   } else {
     return '';
@@ -25,11 +25,11 @@ function renderLicenseLink(license) {
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  if (license = !'No license') {
+  if (license !== 'No license') {
     return `
-      ## [Liscense](#table-of-contents)
-      The license this application is covered under is: 
-      ${renderLicenseLink(license)}
+## License
+The license this application is covered under is: 
+${renderLicenseLink(license)}
     `
   } else {
     return '';
@@ -38,34 +38,53 @@ function renderLicenseSection(license) {
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  return `
-    # ${data.title}
+return `
+# ${data.title}
 
-    ${renderLicenseBadge(data.license)}
+${renderLicenseBadge(data.license)}
 
-    ## Table-of-Contents 
+## Table-of-Contents 
 
-    * [Description] (#description)
-    * [Installation](#installation)
-    * [Usage](#usage)
-    ${renderLicenseTOC(data.license)}
-    * [Contributions](#contributions)
-    * [Tests](#tests)
-    * [Questions](#questions)
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributions](#contributions)
+- [Tests](#tests)
+- [Questions](#questions)
 
-    ## [Description]
+## Description
 
-    ## [Installation]
+${data.description}
 
-    ## [Usage]
+## Installation
 
-    ## [Contributions]
+${data.installation}
 
-    ## [Tests]
+## Usage
 
-    ## [Questions]
+${data.usage}
 
-  `;
+## Contributions
+
+${data.contribution}
+
+
+## Tests
+
+${data.tests}
+
+${renderLicenseSection(data.license)}
+
+## Questions
+
+For questions please contact me at: 
+
+[GitHub](https://github.com/${data.gitHubUser})
+
+[Email: ${data.email}](mailto:${data.email})
+
+`;
 }
 
 module.exports = generateMarkdown;
