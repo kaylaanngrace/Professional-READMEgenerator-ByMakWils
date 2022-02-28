@@ -54,7 +54,7 @@ const questions = () => {
         {
             type: 'input',
             name: 'usage',
-            message: 'Provide instructions and examples for use of this project. (Required)',
+            message: 'Provide instructions and examples for usage of this project. (Required)',
             validate: usageInput => {
                 if (usageInput) {
                     return true;
@@ -83,13 +83,55 @@ const questions = () => {
             }
         },
         {
+            type: 'confirm',
+            name: 'confirmTest',
+            message: 'Are there any test for this project to include in the README.md?',
+            default: true
+        },
+        {
+            type: 'input',
+            name: 'tests',
+            message: 'Provide information on how to run your tests',
+            when: ({ confirmTest }) => {
+                if (confirmTest) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        },
+        {
             type: 'list',
             name:'license',
-            message: '',
+            message: 'What license would you like to use for this project?',
             choices: ['MIT', 'APACHE', 'AGPL', 'No license']
         },
-        
-
+        {
+            type: 'input',
+            name: 'gitHubUser',
+            message: 'Please enter your GitHub username. (Required)',
+            validate: gitHubUserInput => {
+                if (gitHubUserInput) {
+                    return true;
+                } else {
+                    console.log('Please enter your username!');
+                    return false;
+                }
+            }
+        }, 
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Please enter your email. (Required)',
+            validate: emailInput => {
+                if (emailInput) {
+                    return true;
+                } else {
+                    console.log('Please enter your email!');
+                    return false;
+                }
+            }
+        }, 
     ]);
 }
 
@@ -117,7 +159,6 @@ const writeFile = fileContent => {
 
 // Function call to initialize app
 questions()
-    .then(questions)
     .then(readMeData => {
         return generateMarkdown(readMeData);
     })
